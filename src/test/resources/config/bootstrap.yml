@@ -1,0 +1,7 @@
+PROJECT_NAME: order-api
+
+management.contextPath: /admin
+management.security.enabled: false
+management.health.config.enabled: false
+
+

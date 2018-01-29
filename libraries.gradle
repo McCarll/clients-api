@@ -1,0 +1,28 @@
+ext {
+    libpacks = [
+            spring: [
+                    "org.springframework.boot:spring-boot-starter-web",
+                    "org.springframework.boot:spring-boot-starter-actuator",
+                    "de.codecentric:spring-boot-starter-admin-client:1.1.2",
+                    "org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE",
+                    "org.springframework.boot:spring-boot-starter-security"
+            ],
+            swagger:[
+                    "io.springfox:springfox-swagger2:2.7.0",
+                    "io.springfox:springfox-swagger-ui:2.7.0"
+            ],
+            lombok:[
+                    "org.projectlombok:lombok:1.16.10"
+            ],
+            mongoDb:[
+                    "org.springframework.data:spring-data-mongodb:1.10.6.RELEASE"
+            ],
+            testing: [
+                    "org.springframework.boot:spring-boot-starter-test",
+                    'com.jayway.jsonpath:json-path-assert:2.0.0',
+                    'org.unitils:unitils-core:3.4.2',
+//                    "org.spockframework:spock-core:${spockVersion}",
+//                    "org.spockframework:spock-spring:${spockVersion}",
+            ],
+    ]
+}
