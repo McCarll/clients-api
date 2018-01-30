@@ -1,6 +1,7 @@
 package ru.mccarl.client.api.web;
 
 import io.swagger.annotations.ApiOperation;
+import org.bson.types.ObjectId;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -59,8 +60,8 @@ public class Controller {
 
     @ApiOperation(value = "Удаление клиента")
     @DeleteMapping("/clients")
-    public ResponseEntity deleteClient(@RequestBody Client client){
-        clientRepository.delete(client.getSecondName());
+    public ResponseEntity deleteClient(@RequestParam ObjectId id){
+        clientRepository.delete(id.toString());
         return ResponseEntity.ok().build();
     }
 }
