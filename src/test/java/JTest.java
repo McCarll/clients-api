@@ -16,7 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 import ru.mccarl.client.api.Application;
 import ru.mccarl.client.api.entity.Account;
 import ru.mccarl.client.api.entity.Client;
-import ru.mccarl.client.api.repository.AccountRepository;
 import ru.mccarl.client.api.repository.ClientRepository;
 
 /**
@@ -34,9 +33,6 @@ public class JTest extends Specifications{
     private WebApplicationContext webApplicationContext;
 
     @MockBean
-    private AccountRepository accountRepository;
-
-    @MockBean
     private ClientRepository clientRepository;
 
     @Before
@@ -47,13 +43,17 @@ public class JTest extends Specifications{
         account.setCurrency("ru");
         account.setName("test");
         Client client = new Client();
-        Mockito.when(accountRepository.findOne(Mockito.anyString())).thenReturn(account);
+        client.setName("test");
+        client.setSecondName("test");
+        Mockito.when(clientRepository.findOne(Mockito.anyString())).thenReturn(client);
     }
 
     @Test
     public void getClient() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/clients")
-                .param("secondName","Иван"))
+        Client client = new Client();
+        client.setName("test");
+        client.setSecondName("test");
+        mockMvc.perform(MockMvcRequestBuilders.get("/clients"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 

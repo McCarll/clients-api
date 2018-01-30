@@ -10,10 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-        "ru.mccarl.order.api.configuration",
-        "ru.mccarl.order.api.entity",
-        "ru.mccarl.order.api.web",
-        "ru.mccarl.order.api.repository"})
+        "ru.mccarl.client.api"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

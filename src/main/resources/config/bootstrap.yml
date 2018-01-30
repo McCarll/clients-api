@@ -1,29 +1,10 @@
-PROJECT_NAME: order-api
+PROJECT_NAME: client-api
 
 management.contextPath: /admin
 management.security.enabled: false
 management.health.config.enabled: false
 
-spring:
-  application:
-    name: ${PROJECT_NAME}
-  profiles:
-    active: local
-  cloud:
-    config:
-      uri: http://localhost:8080/${PROJECT_KEY}-settings
-      enabled: false
-      failFast: true
-  boot:
-    admin:
-      url: http://localhost:8080/spring-boot-admin
-
 ---
 spring:
   profiles: test,development
-  cloud:
-    config:
-      enabled: false
-    consul:
-      enabled: false
 

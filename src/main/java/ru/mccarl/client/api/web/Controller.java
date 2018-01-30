@@ -6,13 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.mccarl.client.api.entity.Account;
 import ru.mccarl.client.api.entity.Client;
-import ru.mccarl.client.api.repository.AccountRepository;
 import ru.mccarl.client.api.repository.ClientRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by vrudometkin on 24/11/2017.
@@ -23,67 +18,49 @@ import java.util.List;
 public class Controller {
 
     @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
     private ClientRepository clientRepository;
 
     @ApiOperation(value = "Получение клиентов")
-    @GetMapping("/clients")
+    @RequestMapping(value = "/clients", method = RequestMethod.GET)
     public ResponseEntity getClients(){
         return ResponseEntity.ok(clientRepository.findAll());
     }
 
-    @ApiOperation(value = "Получение клиентов со счетами")
-    @GetMapping("/clients")
-    public ResponseEntity getClientsWithAccounts(){
-
-        List<Client> clientList = clientRepository.findAll();
-        clientList.forEach(client -> {
-            List<Account> accountList = new ArrayList<>();
-            client.get_ids()
-                    .forEach(id -> accountList.add(accountRepository.findOne(id.toString())));
-            client.setAccountsList(accountList);
-        });
-        return ResponseEntity.ok(clientList);
+    @ApiOperation(value = "Получение клиента")
+    @RequestMapping(value = "/clients", method = RequestMethod.GET, params = "id")
+    public ResponseEntity getClient(@RequestParam String id){
+        return ResponseEntity.ok(clientRepository.findOne(id));
     }
 
-    @GetMapping("/clients")
-    public ResponseEntity getClient(@RequestParam String secondName){
-        return ResponseEntity.ok(accountRepository.findOneBySecondName(secondName));
+    @ApiOperation(value = "Добавление клиента")
+    @PostMapping("/clients")
+    public ResponseEntity addClient(@RequestBody Client client){
+        return ResponseEntity.ok(clientRepository.save(client));
     }
 
-    @ApiOperation(value = "Добавление счета клиенту")
-    @PutMapping("/clients/accounts")
+    @ApiOperation(value = "Добавление параметров клиента")
+    @PutMapping("/clients")
     public ResponseEntity putAccountForClient(
-            @RequestParam String clientSecondName,
-            @RequestBody Account account){
-        account = accountRepository.save(account);
-        Client client = clientRepository.findOne(clientSecondName);
-        client.get_ids().add(account.get_id());
-        client = clientRepository.save(client);
-        return ResponseEntity.ok(client);
+            @RequestBody Client client){
+        Client oldClient = clientRepository.findOne(client.get_id().toString());
+        BeanUtils.copyProperties(oldClient, client);
+        clientRepository.save(oldClient);
+        return ResponseEntity.ok(oldClient);
     }
 
     @ApiOperation(value = "Изменение свойств клиента")
     @PatchMapping("/clients")
     public ResponseEntity changeClientInfo(@RequestBody Client client){
-        Client oldClient = clientRepository.findOne(client.getSecondName());
+        Client oldClient = clientRepository.findBySecondName(client.getSecondName());
         BeanUtils.copyProperties(oldClient, client);
-        clientRepository.save(client);
-        return ResponseEntity.ok(client);
+        clientRepository.save(oldClient);
+        return ResponseEntity.ok(oldClient);
     }
 
     @ApiOperation(value = "Удаление клиента")
-    @DeleteMapping("/clients/")
+    @DeleteMapping("/clients")
     public ResponseEntity deleteClient(@RequestBody Client client){
         clientRepository.delete(client.getSecondName());
         return ResponseEntity.ok().build();
     }
-
-
-
-
-
-
 }

@@ -9,4 +9,9 @@ import ru.mccarl.client.api.entity.Client;
  */
 @Repository
 public interface ClientRepository extends MongoRepository<Client, String> {
+
+    Client findBySecondName(String secondName);
+
+    Client findOne(String _id);
+
 }

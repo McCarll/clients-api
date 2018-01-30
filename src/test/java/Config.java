@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 
 @SpringBootTest
-@ComponentScan(value = "ru.mccarl.order.api")
+@ComponentScan(value = "ru.mccarl.client.api")
 public class Config {
 
 }

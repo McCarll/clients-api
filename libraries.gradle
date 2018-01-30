@@ -5,7 +5,8 @@ ext {
                     "org.springframework.boot:spring-boot-starter-actuator",
                     "de.codecentric:spring-boot-starter-admin-client:1.1.2",
                     "org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE",
-                    "org.springframework.boot:spring-boot-starter-security"
+                    "org.springframework.boot:spring-boot-starter-security",
+                    "org.aspectj:aspectjweaver:1.8.13"
             ],
             swagger:[
                     "io.springfox:springfox-swagger2:2.7.0",
@@ -20,9 +21,7 @@ ext {
             testing: [
                     "org.springframework.boot:spring-boot-starter-test",
                     'com.jayway.jsonpath:json-path-assert:2.0.0',
-                    'org.unitils:unitils-core:3.4.2',
-//                    "org.spockframework:spock-core:${spockVersion}",
-//                    "org.spockframework:spock-spring:${spockVersion}",
+                    'org.unitils:unitils-core:3.4.2'
             ],
     ]
 }
