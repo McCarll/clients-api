@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+        classpath "se.transmode.gradle:gradle-docker:1.2"
     }
 }
 
@@ -15,9 +16,10 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply from: "libraries.gradle"
+apply plugin: 'docker'
 
 jar {
-    baseName = 'gs-spring-boot'
+    baseName = 'client-api'
     version =  '0.1.0'
 }
 
@@ -37,4 +39,18 @@ dependencies {
     compile libpacks.mongoDb
     compile libpacks.testing
     testCompile("junit:junit")
+}
+
+task buildDocker(type: Docker) {
+    baseImage = 'develar/java:latest'
+    push = project.hasProperty('push')
+    tag = 'mccarl/service-image'
+    addFile {
+        from jar
+        rename {'app.jar'}
+    }
+    entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
+    buildDocker.dependsOn(build)
+
+    'docker run -p 9001:9000 mccarl/service-image:1.0-SNAPSHOT'.execute()
 }
