@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,11 +33,12 @@ public class Client {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String patronymic;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Date birthday;
+
     @Field("accounts")
     @JsonSerialize(using = ToStringSerializer.class)
     private List<ObjectId> _ids;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Account> accountsList;
 
 }

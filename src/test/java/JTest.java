@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ru.mccarl.client.api.Application;
-import ru.mccarl.client.api.entity.Account;
 import ru.mccarl.client.api.entity.Client;
 import ru.mccarl.client.api.repository.ClientRepository;
 
@@ -38,10 +37,6 @@ public class JTest extends Specifications{
     @Before
     public void setup() throws Exception{
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        Account account = new Account();
-        account.setCount("1000");
-        account.setCurrency("ru");
-        account.setName("test");
         Client client = new Client();
         client.setName("test");
         client.setSecondName("test");
