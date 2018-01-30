@@ -52,5 +52,5 @@ task buildDocker(type: Docker) {
     entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
     buildDocker.dependsOn(build)
 
-    'docker run -p 9001:9000 mccarl/service-image:1.0-SNAPSHOT'.execute()
+    'docker run -p 9002:9000 mccarl/service-image:1.0-SNAPSHOT'.execute()
 }
